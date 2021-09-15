@@ -1,17 +1,17 @@
-using DuoEditor.Auth.App.Interfaces;
 using DuoEditor.Auth.App.Repositories;
 using DuoEditor.Auth.Domain.Entities;
+using DuoEditor.Auth.Infra.Persistence;
 
 namespace DuoEditor.Auth.Infra.Repositories
 {
   public class UserRepository : IUserRepository
   {
-    public UserRepository(IDbContext context)
+    public UserRepository(ApiDbContext context)
     {
       _context = context;
     }
 
-    public IDbContext _context { get; set; }
+    public ApiDbContext _context { get; set; }
 
     public User Create(User user)
     {

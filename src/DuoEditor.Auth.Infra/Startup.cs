@@ -1,4 +1,5 @@
 
+using DuoEditor.Auth.App.Config;
 using DuoEditor.Auth.Infra.Config;
 using DuoEditor.Auth.Infra.Persistence;
 using MediatR;
@@ -23,6 +24,7 @@ namespace DuoEditor.Auth.Infra
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
       });
 
+      services.AddApplication();
       services.AddDependencies();
       services.AddControllers();
       services.AddSwaggerGen(c =>
@@ -45,6 +47,7 @@ namespace DuoEditor.Auth.Infra
       }
 
       app.UseHttpsRedirection();
+      app.UseRouting();
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();

@@ -1,4 +1,3 @@
-using DuoEditor.Auth.App.Interfaces;
 using DuoEditor.Auth.App.Repositories;
 using DuoEditor.Auth.Infra.Persistence;
 using DuoEditor.Auth.Infra.Repositories;

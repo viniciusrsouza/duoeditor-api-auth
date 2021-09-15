@@ -1,10 +1,9 @@
-using DuoEditor.Auth.App.Interfaces;
 using DuoEditor.Auth.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuoEditor.Auth.Infra.Persistence
 {
-  public class ApiDbContext : DbContext, IDbContext
+  public class ApiDbContext : DbContext
   {
     public DbSet<User> Users { get; set; }
 
