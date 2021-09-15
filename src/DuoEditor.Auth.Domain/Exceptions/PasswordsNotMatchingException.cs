@@ -1,8 +1,8 @@
 namespace DuoEditor.Auth.Domain.Exceptions
 {
-  public class PasswordsNotMatchingException : Exception
+  public class PasswordsNotMatchingException : BaseException
   {
-    public PasswordsNotMatchingException() : base("The passwords do not match")
+    public PasswordsNotMatchingException() : base("The passwords do not match", "Password", "ConfirmPassword")
     { }
   }
 }

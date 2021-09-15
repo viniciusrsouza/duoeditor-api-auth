@@ -1,4 +1,6 @@
+using DuoEditor.Auth.App.Interfaces;
 using DuoEditor.Auth.App.Repositories;
+using DuoEditor.Auth.App.Validators;
 using DuoEditor.Auth.Domain.Entities;
 using DuoEditor.Auth.Domain.Exceptions;
 using MediatR;
@@ -8,9 +10,11 @@ namespace DuoEditor.Auth.App.UseCases
   public class UserRegisterHandler : IRequestHandler<UserRegister, User>
   {
     private IUserRepository _repository;
-    public UserRegisterHandler(IUserRepository repository)
+    private IPasswordEncryptor _passwordEncryptor;
+    public UserRegisterHandler(IUserRepository repository, IPasswordEncryptor passwordEncryptor)
     {
       _repository = repository;
+      _passwordEncryptor = passwordEncryptor;
     }
 
     public Task<User> Handle(UserRegister argument, CancellationToken cancellationToken)
@@ -26,7 +30,11 @@ namespace DuoEditor.Auth.App.UseCases
         throw new PasswordsNotMatchingException();
       }
 
-      var user = new User(argument.Name, argument.Email, argument.Password);
+      PasswordValidator.Validate(argument.Password);
+
+      var passwordHash = _passwordEncryptor.Encrypt(argument.Password);
+
+      var user = new User(argument.FirstName, argument.LastName, argument.Email, passwordHash);
       user.Validate();
 
       return Task.FromResult(_repository.Create(user));

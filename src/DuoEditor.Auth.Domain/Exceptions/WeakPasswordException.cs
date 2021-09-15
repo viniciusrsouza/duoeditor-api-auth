@@ -1,7 +1,7 @@
 namespace DuoEditor.Auth.Domain.Exceptions
 {
-  public class WeakPasswordException : Exception
+  public class WeakPasswordException : BaseException
   {
-    public WeakPasswordException() : base("The password is too weak") { }
+    public WeakPasswordException() : base("The password is too weak", "Password") { }
   }
 }

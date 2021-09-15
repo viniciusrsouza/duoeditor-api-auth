@@ -8,14 +8,17 @@ namespace DuoEditor.Auth.Domain.Entities
   public class User : IValidatableEntity
   {
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Name => $"{FirstName} {LastName}";
     public string Email { get; set; }
     public string Password { get; set; }
     public UserStatus Status { get; set; }
 
-    public User(string name, string email, string password)
+    public User(string firstName, string lastName, string email, string password)
     {
-      Name = name;
+      FirstName = firstName;
+      LastName = lastName;
       Email = email;
       Password = password;
     }
@@ -33,21 +36,19 @@ namespace DuoEditor.Auth.Domain.Entities
       }
     }
 
-    private bool PasswordIsValid()
-    {
-      return true;
-    }
-
     public void Validate()
     {
       if (!EmailIsValid())
       {
         throw new InvalidEmailException(Email);
       }
-
-      if (!PasswordIsValid())
+      if (FirstName.Length == 0)
       {
-        throw new WeakPasswordException();
+        throw new RequiredFieldException("FirstName");
+      }
+      if (LastName.Length == 0)
+      {
+        throw new RequiredFieldException("LastName");
       }
     }
   }
