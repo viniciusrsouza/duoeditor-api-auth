@@ -1,11 +1,17 @@
+using System.Collections.Generic;
+
 namespace DuoEditor.Auth.Domain.Exceptions
 {
   public class BaseException : Exception
   {
-    public BaseException(string message, params string[] fields) : base(message)
+    public BaseException(string message, string field) : base(message)
     {
-      Fields = fields;
+      Field = field;
     }
-    string[] Fields { get; set; }
+    public string Field { get; set; }
+    public Dictionary<string, string[]> errors => new Dictionary<string, string[]>
+    {
+      [Field] = new string[] { Message }
+    };
   }
 }

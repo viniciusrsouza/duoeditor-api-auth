@@ -13,34 +13,54 @@ namespace DuoEditor.Auth.Infra.Repositories
 
     public ApiDbContext _context { get; set; }
 
-    public User Create(User user)
+    public async Task<User?> Create(User user)
     {
-      throw new NotImplementedException();
+      var entry = _context.Users.Add(user);
+      await _context.SaveChangesAsync();
+      return entry.Entity;
     }
 
-    public User Delete(string email)
+    public async Task<User?> Delete(string email)
     {
-      throw new NotImplementedException();
+      var user = _context.Users.First(x => x.Email == email);
+      if (user == null)
+      {
+        return null;
+      }
+
+      var entry = _context.Users.Remove(user);
+      await _context.SaveChangesAsync();
+      return entry.Entity;
     }
 
-    public User Delete(int id)
+    public async Task<User?> Delete(int id)
     {
-      throw new NotImplementedException();
+      var user = _context.Users.Find(id);
+      if (user == null)
+      {
+        return null;
+      }
+
+      var entry = _context.Users.Remove(user);
+      await _context.SaveChangesAsync();
+      return entry.Entity;
     }
 
-    public User Get(string email)
+    public User? Get(string email)
     {
-      throw new NotImplementedException();
+      return _context.Users.FirstOrDefault(x => x.Email == email);
     }
 
-    public User Get(int id)
+    public User? Get(int id)
     {
-      throw new NotImplementedException();
+      return _context.Users.Find(id);
     }
 
-    public User Update(User user)
+    public async Task<User?> Update(User user)
     {
-      throw new NotImplementedException();
+      var entry = _context.Users.Update(user);
+      await _context.SaveChangesAsync();
+      return entry.Entity;
     }
   }
 }

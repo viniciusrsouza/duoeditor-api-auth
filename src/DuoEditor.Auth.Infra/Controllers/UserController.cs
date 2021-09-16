@@ -1,5 +1,5 @@
 using DuoEditor.Auth.App.UseCases;
-using DuoEditor.Auth.Domain.Entities;
+using DuoEditor.Auth.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +13,16 @@ namespace DuoEditor.Auth.Infra.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(UserRegister payload)
+    public async Task<IActionResult> Create(UserRegister payload)
     {
       try
       {
         var r = await _mediator.Send(payload);
         return Ok(r);
       }
-      catch (Exception ex)
+      catch (ExistingUserException ex)
       {
-        return BadRequest(new { Message = ex.Message });
+        return ValidationProblem(new ValidationProblemDetails(ex.errors));
       }
     }
   }

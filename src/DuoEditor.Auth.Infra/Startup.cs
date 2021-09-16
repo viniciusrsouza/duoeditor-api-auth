@@ -31,6 +31,7 @@ namespace DuoEditor.Auth.Infra
       {
         c.SwaggerDoc("v1", new() { Title = "DuoEditor.Auth.Infra", Version = "v1" });
       });
+      services.AddSwaggerGenNewtonsoftSupport();
 
       var assembly = AppDomain.CurrentDomain.Load("DuoEditor.Auth.App");
       services.AddMediatR(assembly);
@@ -46,7 +47,7 @@ namespace DuoEditor.Auth.Infra
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DuoEditor.Auth.Infra v1"));
       }
 
-      app.UseHttpsRedirection();
+      // app.UseHttpsRedirection();
       app.UseRouting();
       app.UseEndpoints(endpoints =>
       {

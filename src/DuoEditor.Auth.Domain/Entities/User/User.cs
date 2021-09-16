@@ -1,11 +1,8 @@
-using System.Net.Mail;
 using DuoEditor.Auth.Domain.Enums;
-using DuoEditor.Auth.Domain.Exceptions;
-using DuoEditor.Auth.Domain.Interfaces;
 
 namespace DuoEditor.Auth.Domain.Entities
 {
-  public class User : IValidatableEntity
+  public class User
   {
     public int Id { get; set; }
     public string FirstName { get; set; }
@@ -21,35 +18,6 @@ namespace DuoEditor.Auth.Domain.Entities
       LastName = lastName;
       Email = email;
       Password = password;
-    }
-
-    private bool EmailIsValid()
-    {
-      try
-      {
-        var email = new MailAddress(Email);
-        return true;
-      }
-      catch (FormatException)
-      {
-        return false;
-      }
-    }
-
-    public void Validate()
-    {
-      if (!EmailIsValid())
-      {
-        throw new InvalidEmailException(Email);
-      }
-      if (FirstName.Length == 0)
-      {
-        throw new RequiredFieldException("FirstName");
-      }
-      if (LastName.Length == 0)
-      {
-        throw new RequiredFieldException("LastName");
-      }
     }
   }
 }

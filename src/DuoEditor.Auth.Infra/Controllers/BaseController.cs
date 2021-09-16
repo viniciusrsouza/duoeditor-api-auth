@@ -1,5 +1,3 @@
-using DuoEditor.Auth.App.UseCases;
-using DuoEditor.Auth.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
