@@ -16,9 +16,9 @@ namespace DuoEditor.Auth.App.UseCases
       _passwordEncryptor = passwordEncryptor;
     }
 
-    public Task<User?> Handle(UserRegister argument, CancellationToken cancellationToken)
+    public async Task<User?> Handle(UserRegister argument, CancellationToken cancellationToken)
     {
-      var u = _repository.Get(argument.Email);
+      var u = await _repository.Get(argument.Email);
       if (u != null)
       {
         throw new ExistingUserException(argument.Email);
@@ -28,7 +28,7 @@ namespace DuoEditor.Auth.App.UseCases
 
       var user = new User(argument.FirstName, argument.LastName, argument.Email, passwordHash);
 
-      return _repository.Create(user);
+      return await _repository.Create(user);
     }
   }
 }

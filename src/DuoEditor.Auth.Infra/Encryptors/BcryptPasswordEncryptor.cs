@@ -11,7 +11,7 @@ namespace DuoEditor.Auth.Infra.Encryptors
 
     public bool Verify(string encoded, string password)
     {
-      return BCrypt.Net.BCrypt.Verify(encoded, password);
+      return BCrypt.Net.BCrypt.Verify(password, encoded);
     }
   }
 }

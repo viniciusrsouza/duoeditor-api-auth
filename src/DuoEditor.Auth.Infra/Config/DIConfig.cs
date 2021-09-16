@@ -13,6 +13,7 @@ namespace DuoEditor.Auth.Infra.Config
       services.AddScoped<ApiDbContext>();
       services.AddScoped<IUserRepository, UserRepository>();
       services.AddScoped<IPasswordEncryptor, BcryptPasswordEncryptor>();
+      services.AddScoped<ITokenEncryptor, JwtEncryptor>();
 
       return services;
     }

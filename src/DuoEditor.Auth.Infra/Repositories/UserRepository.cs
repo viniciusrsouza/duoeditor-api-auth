@@ -22,8 +22,12 @@ namespace DuoEditor.Auth.Infra.Repositories
 
     public async Task<User?> Delete(string email)
     {
-      var user = _context.Users.First(x => x.Email == email);
-      if (user == null)
+      User user;
+      try
+      {
+        user = _context.Users.First(x => x.Email == email);
+      }
+      catch (Exception)
       {
         return null;
       }
@@ -46,14 +50,21 @@ namespace DuoEditor.Auth.Infra.Repositories
       return entry.Entity;
     }
 
-    public User? Get(string email)
+    public async Task<User?> Get(string email)
     {
-      return _context.Users.FirstOrDefault(x => x.Email == email);
+      try
+      {
+        return await Task.Run(() => _context.Users.First(x => x.Email == email));
+      }
+      catch (Exception)
+      {
+        return null;
+      }
     }
 
-    public User? Get(int id)
+    public async Task<User?> Get(int id)
     {
-      return _context.Users.Find(id);
+      return await Task.Run(() => _context.Users.Find(id));
     }
 
     public async Task<User?> Update(User user)

@@ -35,6 +35,8 @@ namespace DuoEditor.Auth.Infra
 
       var assembly = AppDomain.CurrentDomain.Load("DuoEditor.Auth.App");
       services.AddMediatR(assembly);
+
+      services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
