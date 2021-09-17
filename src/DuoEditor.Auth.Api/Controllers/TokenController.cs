@@ -2,7 +2,7 @@ using DuoEditor.Auth.App.UseCases;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DuoEditor.Auth.Infra.Controllers
+namespace DuoEditor.Auth.Api.Controllers
 {
   [Route("api/tokens")]
   public class TokenController : BaseController

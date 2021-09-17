@@ -1,13 +1,13 @@
 
 using DuoEditor.Auth.App.Config;
-using DuoEditor.Auth.Infra.Config;
+using DuoEditor.Auth.Api.Config;
 using DuoEditor.Auth.Infra.Persistence;
 using DuoEditor.Auth.Jwt;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
-namespace DuoEditor.Auth.Infra
+namespace DuoEditor.Auth.Api
 {
   public class Startup
   {

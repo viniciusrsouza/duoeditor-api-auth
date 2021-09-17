@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DuoEditor.Auth.Infra.Controllers
+namespace DuoEditor.Auth.Api.Controllers
 {
   [Route("api/users")]
   public class UserController : BaseController

@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DuoEditor.Auth.Infra.Controllers
+namespace DuoEditor.Auth.Api.Controllers
 {
   [ApiController]
   public class BaseController : ControllerBase

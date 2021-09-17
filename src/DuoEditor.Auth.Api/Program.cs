@@ -1,4 +1,4 @@
-namespace DuoEditor.Auth.Infra
+namespace DuoEditor.Auth.Api
 {
   public class Program
   {

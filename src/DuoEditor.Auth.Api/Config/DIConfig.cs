@@ -5,7 +5,7 @@ using DuoEditor.Auth.Infra.Persistence;
 using DuoEditor.Auth.Infra.Repositories;
 using DuoEditor.Auth.Jwt;
 
-namespace DuoEditor.Auth.Infra.Config
+namespace DuoEditor.Auth.Api.Config
 {
   public static class DIConfig
   {
