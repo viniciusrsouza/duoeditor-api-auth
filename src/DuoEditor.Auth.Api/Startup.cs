@@ -34,7 +34,7 @@ namespace DuoEditor.Auth.Api
       services.AddAutoMapper(typeof(Startup));
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new() { Title = "DuoEditor.Auth.Infra", Version = "v1" });
+        c.SwaggerDoc("v1", new() { Title = "DuoEditor.Auth.Api", Version = "v1" });
       });
       services.AddSwaggerGenNewtonsoftSupport();
 
@@ -51,7 +51,7 @@ namespace DuoEditor.Auth.Api
       {
         app.UseDeveloperExceptionPage();
         app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DuoEditor.Auth.Infra v1"));
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DuoEditor.Auth.Api v1"));
       }
 
       // app.UseHttpsRedirection();

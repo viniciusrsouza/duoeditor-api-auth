@@ -10,9 +10,9 @@
       "request": "launch",
       "preLaunchTask": "build",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/src/DuoEditor.Auth.Infra/bin/Debug/net6.0/DuoEditor.Auth.Infra.dll",
+      "program": "${workspaceFolder}/src/DuoEditor.Auth.Api/bin/Debug/net6.0/DuoEditor.Auth.Api.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/src/DuoEditor.Auth.Infra",
+      "cwd": "${workspaceFolder}/src/DuoEditor.Auth.Api",
       "stopAtEntry": false,
       // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
       "serverReadyAction": {

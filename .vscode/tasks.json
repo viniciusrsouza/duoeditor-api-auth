@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/src/DuoEditor.Auth.Infra/DuoEditor.Auth.Infra.csproj",
+        "${workspaceFolder}/src/DuoEditor.Auth.Infra/DuoEditor.Auth.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -19,7 +19,7 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/src/DuoEditor.Auth.Infra/DuoEditor.Auth.Infra.csproj",
+        "${workspaceFolder}/src/DuoEditor.Auth.Infra/DuoEditor.Auth.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -31,12 +31,67 @@
       "type": "process",
       "args": [
         "watch",
-        "run",
-        "${workspaceFolder}/src/DuoEditor.Auth.Infra/DuoEditor.Auth.Infra.csproj",
+        "--project",
+        "${workspaceFolder}/src/DuoEditor.Auth.Infra/DuoEditor.Auth.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "make migration",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "ef",
+        "--startup-project",
+        "${workspaceFolder}/src/DuoEditor.Auth.Api",
+        "--project",
+        "${workspaceFolder}/src/DuoEditor.Auth.Infra",
+        "migrations",
+        "add",
+        "${input:migrationName}",
+        "--verbose"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "remove migration",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "ef",
+        "--startup-project",
+        "${workspaceFolder}/src/DuoEditor.Auth.Api",
+        "--project",
+        "${workspaceFolder}/src/DuoEditor.Auth.Infra",
+        "migrations",
+        "remove"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "migrate",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "ef",
+        "--startup-project",
+        "${workspaceFolder}/src/DuoEditor.Auth.Api",
+        "--project",
+        "${workspaceFolder}/src/DuoEditor.Auth.Infra",
+        "database",
+        "update"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "migrationName",
+      "type": "promptString",
+      "description": "Type the name of the migration",
+      "default": "UnnamedMigration"
     }
   ]
 }
