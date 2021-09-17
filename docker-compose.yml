@@ -9,3 +9,9 @@ services:
       - "5432:5432"
     volumes:
       - ./volumes/data/:/var/lib/postgresql/data
+  auth_redis:
+    build:
+      context: ./redis
+      dockerfile: Dockerfile
+    ports:
+      - "6379:6379"

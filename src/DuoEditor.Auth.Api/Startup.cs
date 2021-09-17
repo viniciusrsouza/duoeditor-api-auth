@@ -5,6 +5,7 @@ using DuoEditor.Auth.Infra.Persistence;
 using DuoEditor.Auth.Jwt;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using ServiceStack.Redis;
 
 namespace DuoEditor.Auth.Api
 {
@@ -25,6 +26,7 @@ namespace DuoEditor.Auth.Api
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
       });
 
+      services.AddSingleton<IRedisClientsManagerAsync>(c => new RedisManagerPool(Configuration.GetConnectionString("RedisConnection")));
       services.AddApplication();
       services.AddDependencies();
       services.AddAuthentication("Jwt").AddScheme<JwtAuthenticationOptions, JwtAuthenticationHandler>("Jwt", opt => { });

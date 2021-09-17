@@ -10,9 +10,11 @@ namespace DuoEditor.Auth.App.UseCases
     private readonly IUserRepository _repository;
     private readonly IPasswordEncoder _passwordEncoder;
     private readonly ITokenEncoder _tokenEncoder;
-    public UserLoginHandler(IUserRepository repository, IPasswordEncoder passwordEncoder, ITokenEncoder tokenEncoder)
+    private readonly ITokenRepository _tokenRepository;
+    public UserLoginHandler(IUserRepository repository, ITokenRepository tokenRepository, IPasswordEncoder passwordEncoder, ITokenEncoder tokenEncoder)
     {
       _repository = repository;
+      _tokenRepository = tokenRepository;
       _passwordEncoder = passwordEncoder;
       _tokenEncoder = tokenEncoder;
     }
@@ -26,7 +28,9 @@ namespace DuoEditor.Auth.App.UseCases
         return null;
       }
 
-      return _tokenEncoder.Encode(user);
+      var token = _tokenEncoder.Encode(user);
+      await _tokenRepository.Add(token.Refresh);
+      return token;
     }
   }
 }
