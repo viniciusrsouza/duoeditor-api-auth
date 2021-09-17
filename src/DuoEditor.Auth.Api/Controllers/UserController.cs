@@ -1,3 +1,5 @@
+using AutoMapper;
+using DuoEditor.Auth.Api.Presenters;
 using DuoEditor.Auth.App.UseCases;
 using DuoEditor.Auth.Domain.Exceptions;
 using MediatR;
@@ -9,23 +11,49 @@ namespace DuoEditor.Auth.Api.Controllers
   [Route("api/users")]
   public class UserController : BaseController
   {
-    public UserController(IMediator mediator) : base(mediator)
+    public UserController(IMediator mediator, IMapper mapper) : base(mediator, mapper)
     {
     }
 
     [HttpPost]
-    [Authorize]
-    public async Task<IActionResult> Create(UserRegister payload)
+    public async Task<IActionResult> Register(UserRegister payload)
     {
       try
       {
-        var r = await _mediator.Send(payload);
-        return Ok(r);
+        var user = await _mediator.Send(payload);
+        return Ok(_mapper.Map<AuthUserPresenter>(user));
       }
       catch (ExistingUserException ex)
       {
         return ValidationProblem(new ValidationProblemDetails(ex.errors));
       }
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> Get()
+    {
+      var user = await _mediator.Send(new GetUser { Id = UserId });
+
+      if (user == null)
+      {
+        return NotFound();
+      }
+
+      return Ok(_mapper.Map<AuthUserPresenter>(user));
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> Get(int id)
+    {
+      var user = await _mediator.Send(new GetUser { Id = id });
+
+      if (user == null)
+      {
+        return NotFound();
+      }
+
+      return Ok(_mapper.Map<UserPresenter>(user));
     }
   }
 }

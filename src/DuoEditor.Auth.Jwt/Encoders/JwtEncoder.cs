@@ -24,7 +24,9 @@ namespace DuoEditor.Auth.Jwt
                            .MustVerifySignature()
                            .Decode(token);
 
-      return JsonSerializer.Deserialize<TokenModel>(json);
+      var options = new JsonSerializerOptions();
+      options.PropertyNameCaseInsensitive = true;
+      return JsonSerializer.Deserialize<TokenModel>(json, options);
     }
 
     public Token Encode(User user)

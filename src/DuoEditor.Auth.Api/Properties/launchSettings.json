@@ -9,8 +9,9 @@
     }
   },
   "profiles": {
-    "DuoEditor.Auth.Infra": {
+    "DuoEditor.Auth.Api": {
       "commandName": "Project",
+      "hotReloadProfile": "aspnetcore",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",

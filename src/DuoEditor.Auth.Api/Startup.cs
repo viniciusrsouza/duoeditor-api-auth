@@ -4,7 +4,6 @@ using DuoEditor.Auth.Api.Config;
 using DuoEditor.Auth.Infra.Persistence;
 using DuoEditor.Auth.Jwt;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuoEditor.Auth.Api
@@ -30,6 +29,7 @@ namespace DuoEditor.Auth.Api
       services.AddDependencies();
       services.AddAuthentication("Jwt").AddScheme<JwtAuthenticationOptions, JwtAuthenticationHandler>("Jwt", opt => { });
       services.AddControllers();
+      services.AddAutoMapper(typeof(Startup));
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new() { Title = "DuoEditor.Auth.Infra", Version = "v1" });
