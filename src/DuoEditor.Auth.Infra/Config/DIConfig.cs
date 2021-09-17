@@ -1,8 +1,9 @@
 using DuoEditor.Auth.App.Interfaces;
 using DuoEditor.Auth.App.Repositories;
-using DuoEditor.Auth.Infra.Encryptors;
+using DuoEditor.Auth.Infra.Encoders;
 using DuoEditor.Auth.Infra.Persistence;
 using DuoEditor.Auth.Infra.Repositories;
+using DuoEditor.Auth.Jwt;
 
 namespace DuoEditor.Auth.Infra.Config
 {
@@ -12,8 +13,8 @@ namespace DuoEditor.Auth.Infra.Config
     {
       services.AddScoped<ApiDbContext>();
       services.AddScoped<IUserRepository, UserRepository>();
-      services.AddScoped<IPasswordEncryptor, BcryptPasswordEncryptor>();
-      services.AddScoped<ITokenEncryptor, JwtEncryptor>();
+      services.AddScoped<IPasswordEncoder, BcryptPasswordEncoder>();
+      services.AddScoped<ITokenEncoder, JwtEncoder>();
 
       return services;
     }

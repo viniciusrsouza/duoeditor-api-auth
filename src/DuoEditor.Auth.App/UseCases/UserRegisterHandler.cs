@@ -9,11 +9,11 @@ namespace DuoEditor.Auth.App.UseCases
   public class UserRegisterHandler : IRequestHandler<UserRegister, User?>
   {
     private IUserRepository _repository;
-    private IPasswordEncryptor _passwordEncryptor;
-    public UserRegisterHandler(IUserRepository repository, IPasswordEncryptor passwordEncryptor)
+    private IPasswordEncoder _passwordEncoder;
+    public UserRegisterHandler(IUserRepository repository, IPasswordEncoder passwordEncoder)
     {
       _repository = repository;
-      _passwordEncryptor = passwordEncryptor;
+      _passwordEncoder = passwordEncoder;
     }
 
     public async Task<User?> Handle(UserRegister argument, CancellationToken cancellationToken)
@@ -24,7 +24,7 @@ namespace DuoEditor.Auth.App.UseCases
         throw new ExistingUserException(argument.Email);
       }
 
-      var passwordHash = _passwordEncryptor.Encrypt(argument.Password);
+      var passwordHash = _passwordEncoder.Encode(argument.Password);
 
       var user = new User(argument.FirstName, argument.LastName, argument.Email, passwordHash);
 

@@ -11,6 +11,8 @@
     <PackageReference Include="JWT" Version="8.4.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -24,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DuoEditor.Auth.Domain\DuoEditor.Auth.Domain.csproj" />
     <ProjectReference Include="..\DuoEditor.Auth.App\DuoEditor.Auth.App.csproj" />
+    <ProjectReference Include="..\DuoEditor.Auth.Jwt\DuoEditor.Auth.Jwt.csproj" />
   </ItemGroup>
 
 </Project>

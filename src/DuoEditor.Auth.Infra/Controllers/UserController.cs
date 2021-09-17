@@ -1,6 +1,7 @@
 using DuoEditor.Auth.App.UseCases;
 using DuoEditor.Auth.Domain.Exceptions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DuoEditor.Auth.Infra.Controllers
@@ -13,6 +14,7 @@ namespace DuoEditor.Auth.Infra.Controllers
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create(UserRegister payload)
     {
       try

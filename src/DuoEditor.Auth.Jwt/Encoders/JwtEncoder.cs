@@ -1,3 +1,4 @@
+using System.Text.Json;
 using DuoEditor.Auth.App.Interfaces;
 using DuoEditor.Auth.Domain.Entities;
 using DuoEditor.Auth.Domain.Enums;
@@ -5,22 +6,28 @@ using JWT.Algorithms;
 using JWT.Builder;
 using Microsoft.Extensions.Options;
 
-namespace DuoEditor.Auth.Infra.Encryptors
+namespace DuoEditor.Auth.Jwt
 {
-  public class JwtEncryptor : ITokenEncryptor
+  public class JwtEncoder : ITokenEncoder
   {
     private readonly JwtConfig _config;
 
-    public JwtEncryptor(IOptionsMonitor<JwtConfig> optionsMonitor)
+    public JwtEncoder(IOptionsMonitor<JwtConfig> optionsMonitor)
     {
       _config = optionsMonitor.CurrentValue;
     }
-    public Dictionary<string, string> Decrypt(string token)
+    public TokenModel? Decode(string token)
     {
-      throw new NotImplementedException();
+      var json = JwtBuilder.Create()
+                           .WithAlgorithm(new HMACSHA256Algorithm())
+                           .WithSecret(_config.Secret)
+                           .MustVerifySignature()
+                           .Decode(token);
+
+      return JsonSerializer.Deserialize<TokenModel>(json);
     }
 
-    public Token Encrypt(User user)
+    public Token Encode(User user)
     {
       var refresh = JwtBuilder.Create()
                               .WithAlgorithm(new HMACSHA256Algorithm())

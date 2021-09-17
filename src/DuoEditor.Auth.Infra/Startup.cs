@@ -2,7 +2,9 @@
 using DuoEditor.Auth.App.Config;
 using DuoEditor.Auth.Infra.Config;
 using DuoEditor.Auth.Infra.Persistence;
+using DuoEditor.Auth.Jwt;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuoEditor.Auth.Infra
@@ -26,6 +28,7 @@ namespace DuoEditor.Auth.Infra
 
       services.AddApplication();
       services.AddDependencies();
+      services.AddAuthentication("Jwt").AddScheme<JwtAuthenticationOptions, JwtAuthenticationHandler>("Jwt", opt => { });
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
@@ -51,6 +54,8 @@ namespace DuoEditor.Auth.Infra
 
       // app.UseHttpsRedirection();
       app.UseRouting();
+      app.UseAuthentication();
+      app.UseAuthorization();
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();

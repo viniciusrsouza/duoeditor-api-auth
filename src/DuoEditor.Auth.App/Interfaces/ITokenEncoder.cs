@@ -3,9 +3,9 @@ using DuoEditor.Auth.Domain.Enums;
 
 namespace DuoEditor.Auth.App.Interfaces
 {
-  public interface ITokenEncryptor
+  public interface ITokenEncoder
   {
-    Token Encrypt(User user);
-    Dictionary<string, string> Decrypt(string token);
+    Token Encode(User user);
+    TokenModel? Decode(string token);
   }
 }

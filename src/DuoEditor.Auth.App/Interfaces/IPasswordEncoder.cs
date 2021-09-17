@@ -1,8 +1,8 @@
 namespace DuoEditor.Auth.App.Interfaces
 {
-  public interface IPasswordEncryptor
+  public interface IPasswordEncoder
   {
-    string Encrypt(string password);
+    string Encode(string password);
     bool Verify(string encoded, string password);
   }
 }

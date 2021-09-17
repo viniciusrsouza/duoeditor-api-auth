@@ -1,10 +1,10 @@
 using DuoEditor.Auth.App.Interfaces;
 
-namespace DuoEditor.Auth.Infra.Encryptors
+namespace DuoEditor.Auth.Infra.Encoders
 {
-  public class BcryptPasswordEncryptor : IPasswordEncryptor
+  public class BcryptPasswordEncoder : IPasswordEncoder
   {
-    public string Encrypt(string password)
+    public string Encode(string password)
     {
       return BCrypt.Net.BCrypt.HashPassword(password);
     }

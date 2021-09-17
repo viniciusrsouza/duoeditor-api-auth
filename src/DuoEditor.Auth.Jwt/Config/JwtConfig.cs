@@ -1,4 +1,4 @@
-namespace DuoEditor.Auth.Infra
+namespace DuoEditor.Auth.Jwt
 {
   public class JwtConfig
   {
