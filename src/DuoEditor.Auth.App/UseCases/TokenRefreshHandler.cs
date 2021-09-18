@@ -27,8 +27,6 @@ namespace DuoEditor.Auth.App.UseCases
         return null;
       };
 
-      Console.WriteLine(JsonSerializer.Serialize(_token));
-
       var token = _tokenEncoder.Encode(_token.User);
       var refreshToken = new RefreshToken(token.Refresh, _token.User, DateTimeOffset.Now.AddSeconds(30));
       await _tokenRepository.Create(refreshToken);

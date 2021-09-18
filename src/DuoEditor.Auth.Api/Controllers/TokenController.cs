@@ -3,6 +3,7 @@ using DuoEditor.Auth.Api.Presenters;
 using DuoEditor.Auth.App.UseCases;
 using DuoEditor.Auth.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DuoEditor.Auth.Api.Controllers
@@ -48,5 +49,13 @@ namespace DuoEditor.Auth.Api.Controllers
       var (user, token) = ((User, TokenModel))response;
       return Ok(new IntrospectionPresenter(_mapper.Map<AuthUserPresenter>(user), token.Exp));
     }
+
+    [HttpDelete]
+    [Authorize]
+    public async Task<IActionResult> SignOff(RevokeToken payload)
+    {
+      await _mediator.Send(payload);
+      return Ok();
+    }
   }
-}
+} 

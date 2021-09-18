@@ -1,3 +1,4 @@
+using System.Text.Json;
 using DuoEditor.Auth.App.Repositories;
 using DuoEditor.Auth.Domain.Entities;
 using DuoEditor.Auth.Infra.Persistence;
