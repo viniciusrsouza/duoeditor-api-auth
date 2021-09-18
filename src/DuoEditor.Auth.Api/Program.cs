@@ -1,3 +1,5 @@
+using DuoEditor.Auth.Api.Tasks;
+
 namespace DuoEditor.Auth.Api
 {
   public class Program
@@ -12,6 +14,10 @@ namespace DuoEditor.Auth.Api
             .ConfigureWebHostDefaults(webBuilder =>
             {
               webBuilder.UseStartup<Startup>();
+            })
+            .ConfigureServices(services =>
+            {
+              services.AddHostedService<TokenCleanupService>();
             });
   }
 }

@@ -57,5 +57,20 @@ namespace DuoEditor.Auth.Infra.Repositories
       await _context.SaveChangesAsync();
       return entry.Entity;
     }
+
+    public async Task DeleteExpired()
+    {
+      var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+      _context
+      .RefreshTokens
+      .RemoveRange(
+        _context
+        .RefreshTokens
+        .Where(x => x.Expiration < now)
+      );
+
+      await _context.SaveChangesAsync();
+    }
   }
 }

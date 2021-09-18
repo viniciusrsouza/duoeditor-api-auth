@@ -26,8 +26,8 @@ namespace DuoEditor.Auth.Infra.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTimeOffset>("Expiration")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<long>("Expiration")
+                        .HasColumnType("bigint");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");

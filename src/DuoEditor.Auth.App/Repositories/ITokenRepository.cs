@@ -8,6 +8,6 @@ namespace DuoEditor.Auth.App.Repositories
     Task<RefreshToken?> Create(RefreshToken token);
     Task<RefreshToken?> Delete(string token);
     Task<RefreshToken?> Update(RefreshToken token);
-
+    Task DeleteExpired();
   }
 }

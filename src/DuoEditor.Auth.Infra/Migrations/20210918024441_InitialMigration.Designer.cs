@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DuoEditor.Auth.Infra.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20210917183151_RefreshToken")]
-    partial class RefreshToken
+    [Migration("20210918024441_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,16 +23,22 @@ namespace DuoEditor.Auth.Infra.Migrations
 
             modelBuilder.Entity("DuoEditor.Auth.Domain.Entities.RefreshToken", b =>
                 {
-                    b.Property<string>("Value")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTimeOffset>("Expiration")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<long>("Expiration")
+                        .HasColumnType("bigint");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Value");
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
