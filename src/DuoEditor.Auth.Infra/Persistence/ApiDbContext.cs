@@ -6,6 +6,7 @@ namespace DuoEditor.Auth.Infra.Persistence
   public class ApiDbContext : DbContext
   {
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
     public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
     {

@@ -1,47 +1,60 @@
 using DuoEditor.Auth.App.Repositories;
-using ServiceStack.Redis;
+using DuoEditor.Auth.Domain.Entities;
+using DuoEditor.Auth.Infra.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace DuoEditor.Auth.Infra.Repositories
 {
   public class TokenRepository : ITokenRepository
   {
-    private readonly IRedisClientsManagerAsync _manager;
+    private readonly ApiDbContext _context;
 
-    public TokenRepository(IRedisClientsManagerAsync manager)
+    public TokenRepository(ApiDbContext context)
     {
-      _manager = manager;
+      _context = context;
     }
 
-    public async Task<bool> Add(string token)
+    public async Task<RefreshToken?> Create(RefreshToken token)
     {
-      await using var redis = await _manager.GetClientAsync();
-      await redis.AddAsync(token, 1);
-      return await redis.ExpireEntryInAsync(token, TimeSpan.FromSeconds(30));
+      var entry = _context.RefreshTokens.Add(token);
+      await _context.SaveChangesAsync();
+      return entry.Entity;
     }
 
-    public async Task<bool> Has(string token)
+    public async Task<RefreshToken?> Delete(string token)
     {
-      await using var redis = await _manager.GetClientAsync();
-      return await redis.ContainsKeyAsync(token);
-    }
-
-    public async Task<bool> Remove(string token)
-    {
-      await using var redis = await _manager.GetClientAsync();
-      return await redis.RemoveAsync(token);
-    }
-
-    public async Task<bool> Replace(string token, string newToken)
-    {
-      await using var redis = await _manager.GetClientAsync();
-      if (await redis.ContainsKeyAsync(token))
+      RefreshToken _token;
+      try
       {
-        var removed = await redis.RemoveAsync(token);
-        var added = await redis.AddAsync(token, 1);
-        var expiring = await redis.ExpireEntryInAsync(newToken, TimeSpan.FromSeconds(30));
-        return removed && added && expiring;
+        _token = _context.RefreshTokens.Include(x => x.User).First(x => x.Value == token);
       }
-      return false;
+      catch (Exception)
+      {
+        return null;
+      }
+
+      var entry = _context.RefreshTokens.Remove(_token);
+      await _context.SaveChangesAsync();
+      return entry.Entity;
+    }
+
+    public async Task<RefreshToken?> Get(string token)
+    {
+      try
+      {
+        return await Task.Run(() => _context.RefreshTokens.Include(x => x.User).First(x => x.Value == token));
+      }
+      catch (Exception)
+      {
+        return null;
+      }
+    }
+
+    public async Task<RefreshToken?> Update(RefreshToken token)
+    {
+      var entry = _context.RefreshTokens.Update(token);
+      await _context.SaveChangesAsync();
+      return entry.Entity;
     }
   }
 }

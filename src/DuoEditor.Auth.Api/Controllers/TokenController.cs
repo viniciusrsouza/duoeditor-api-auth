@@ -1,5 +1,7 @@
 using AutoMapper;
+using DuoEditor.Auth.Api.Presenters;
 using DuoEditor.Auth.App.UseCases;
+using DuoEditor.Auth.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +23,30 @@ namespace DuoEditor.Auth.Api.Controllers
         return Ok(user);
       }
       return NotFound();
+    }
+
+    [HttpPatch]
+    public async Task<IActionResult> Refresh(TokenRefresh payload)
+    {
+      var token = await _mediator.Send(payload);
+      if (token != null)
+      {
+        return Ok(token);
+      }
+      return Unauthorized();
+    }
+
+    [HttpPost("introspection")]
+    public async Task<IActionResult> Introspection(Introspection payload)
+    {
+      var response = await _mediator.Send(payload);
+      if (response == null)
+      {
+        return Unauthorized();
+      }
+
+      var (user, token) = ((User, TokenModel))response;
+      return Ok(new IntrospectionPresenter(_mapper.Map<AuthUserPresenter>(user), token.Exp));
     }
   }
 }

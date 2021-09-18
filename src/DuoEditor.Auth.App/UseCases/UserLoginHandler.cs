@@ -29,7 +29,8 @@ namespace DuoEditor.Auth.App.UseCases
       }
 
       var token = _tokenEncoder.Encode(user);
-      await _tokenRepository.Add(token.Refresh);
+      var refreshToken = new RefreshToken(token.Refresh, user, DateTimeOffset.Now.AddSeconds(30));
+      await _tokenRepository.Create(refreshToken);
       return token;
     }
   }

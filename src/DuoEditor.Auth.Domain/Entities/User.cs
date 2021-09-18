@@ -2,9 +2,8 @@ using DuoEditor.Auth.Domain.Enums;
 
 namespace DuoEditor.Auth.Domain.Entities
 {
-  public class User
+  public class User : Entity
   {
-    public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Name => $"{FirstName} {LastName}";

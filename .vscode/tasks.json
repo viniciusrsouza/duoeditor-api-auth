@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/src/DuoEditor.Auth.Infra/DuoEditor.Auth.Api.csproj",
+        "${workspaceFolder}/src/DuoEditor.Auth.Api/DuoEditor.Auth.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -19,7 +19,7 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/src/DuoEditor.Auth.Infra/DuoEditor.Auth.Api.csproj",
+        "${workspaceFolder}/src/DuoEditor.Auth.Api/DuoEditor.Auth.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -32,9 +32,7 @@
       "args": [
         "watch",
         "--project",
-        "${workspaceFolder}/src/DuoEditor.Auth.Infra/DuoEditor.Auth.Api.csproj",
-        "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary"
+        "${workspaceFolder}/src/DuoEditor.Auth.Api/DuoEditor.Auth.Api.csproj",
       ],
       "problemMatcher": "$msCompile"
     },
