@@ -6,6 +6,8 @@ using DuoEditor.Auth.Jwt;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ServiceStack.Redis;
+using DuoEditor.Auth.Service.Config;
+using DuoEditor.Auth.Service.Clients;
 
 namespace DuoEditor.Auth.Api
 {
@@ -27,10 +29,22 @@ namespace DuoEditor.Auth.Api
       });
 
       services.AddSingleton<IRedisClientsManagerAsync>(c => new RedisManagerPool(Configuration.GetConnectionString("RedisConnection")));
+      services.AddControllers();
+
+      // Configurations
+      services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+      services.Configure<ImageClientConfig>(Configuration.GetSection("Services:Image"));
+
+      // Clients
+      services.AddHttpClient<ImageHttpClient>();
+
+      // Internal Dependencies
       services.AddApplication();
       services.AddDependencies();
+
+      // Auth
       services.AddAuthentication("Jwt").AddScheme<JwtAuthenticationOptions, JwtAuthenticationHandler>("Jwt", opt => { });
-      services.AddControllers();
+
       services.AddAutoMapper(typeof(Startup));
       services.AddSwaggerGen(c =>
       {
@@ -40,8 +54,6 @@ namespace DuoEditor.Auth.Api
 
       var assembly = AppDomain.CurrentDomain.Load("DuoEditor.Auth.App");
       services.AddMediatR(assembly);
-
-      services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

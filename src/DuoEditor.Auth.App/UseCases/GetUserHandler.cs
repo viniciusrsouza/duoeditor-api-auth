@@ -6,25 +6,33 @@ namespace DuoEditor.Auth.App.UseCases
 {
   public class GetUserHandler : IRequestHandler<GetUser, User?>
   {
-    private IUserRepository _repository;
-    public GetUserHandler(IUserRepository repository)
+    private readonly IUserRepository _repository;
+    private readonly IImageRepository _imageRepository;
+    public GetUserHandler(IUserRepository repository, IImageRepository imageRepository)
     {
       _repository = repository;
+      _imageRepository = imageRepository;
     }
 
     public async Task<User?> Handle(GetUser argument, CancellationToken cancellationToken)
     {
+      User? user = null;
       if (argument.Id != null)
       {
-        return await _repository.Get((int)argument.Id);
+        user = await _repository.Get((int)argument.Id);
       }
 
-      if (argument.Email != null)
+      if (user == null && argument.Email != null)
       {
-        return await _repository.Get(argument.Email);
+        user = await _repository.Get(argument.Email);
       }
 
-      return null;
+      if (user != null)
+      {
+        var image = await _imageRepository.GetImage(user);
+        user.ProfileImage = image;
+      }
+      return user;
     }
   }
 }

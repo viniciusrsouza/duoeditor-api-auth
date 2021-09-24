@@ -8,8 +8,8 @@ namespace DuoEditor.Auth.App.UseCases
 {
   public class UserRegisterHandler : IRequestHandler<UserRegister, User?>
   {
-    private IUserRepository _repository;
-    private IPasswordEncoder _passwordEncoder;
+    private readonly IUserRepository _repository;
+    private readonly IPasswordEncoder _passwordEncoder;
     public UserRegisterHandler(IUserRepository repository, IPasswordEncoder passwordEncoder)
     {
       _repository = repository;

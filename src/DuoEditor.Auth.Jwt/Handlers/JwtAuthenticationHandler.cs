@@ -44,8 +44,6 @@ namespace DuoEditor.Auth.Jwt
         return Task.FromResult(AuthenticateResult.Fail("The Authentication token is not valid"));
       }
 
-      var decoded = _jwtEncoder.Decode(value);
-
       var claims = new[] {
           new Claim("id", tokenModel.Id.ToString()),
           new Claim(ClaimTypes.Email, tokenModel.Email)

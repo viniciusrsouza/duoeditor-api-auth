@@ -1,3 +1,4 @@
+using System.Text.Json;
 using DuoEditor.Auth.App.Interfaces;
 using DuoEditor.Auth.App.Repositories;
 using DuoEditor.Auth.Domain.Entities;
@@ -17,7 +18,15 @@ namespace DuoEditor.Auth.App.UseCases
 
     public async Task<(User, TokenModel)?> Handle(Introspection argument, CancellationToken cancellationToken)
     {
-      var token = _tokenEncoder.Decode(argument.Token);
+      TokenModel? token = null;
+      try
+      {
+        token = _tokenEncoder.Decode(argument.Token);
+      }
+      catch
+      {
+        return null;
+      }
 
       if (token == null)
       {

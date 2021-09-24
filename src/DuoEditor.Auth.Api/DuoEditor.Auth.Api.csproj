@@ -27,6 +27,7 @@
     <ProjectReference Include="..\DuoEditor.Auth.App\DuoEditor.Auth.App.csproj" />
     <ProjectReference Include="..\DuoEditor.Auth.Jwt\DuoEditor.Auth.Jwt.csproj" />
     <ProjectReference Include="..\DuoEditor.Auth.Infra\DuoEditor.Auth.Infra.csproj" />
+    <ProjectReference Include="..\DuoEditor.Auth.Service\DuoEditor.Auth.Service.csproj" />
   </ItemGroup>
 
 </Project>

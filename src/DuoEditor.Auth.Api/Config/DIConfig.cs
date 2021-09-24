@@ -4,6 +4,7 @@ using DuoEditor.Auth.Infra.Encoders;
 using DuoEditor.Auth.Infra.Persistence;
 using DuoEditor.Auth.Infra.Repositories;
 using DuoEditor.Auth.Jwt;
+using DuoEditor.Auth.Service.Clients;
 
 namespace DuoEditor.Auth.Api.Config
 {
@@ -16,6 +17,7 @@ namespace DuoEditor.Auth.Api.Config
       services.AddScoped<ITokenRepository, TokenRepository>();
       services.AddScoped<IPasswordEncoder, BcryptPasswordEncoder>();
       services.AddScoped<ITokenEncoder, JwtEncoder>();
+      services.AddSingleton<IImageRepository, ImageHttpClient>();
 
       return services;
     }

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using AutoMapper;
 using DuoEditor.Auth.Api.Presenters;
 using DuoEditor.Auth.App.UseCases;
@@ -58,4 +59,4 @@ namespace DuoEditor.Auth.Api.Controllers
       return Ok();
     }
   }
-} 
+}

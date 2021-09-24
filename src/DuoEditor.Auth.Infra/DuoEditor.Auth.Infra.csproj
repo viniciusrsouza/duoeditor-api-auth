@@ -9,12 +9,12 @@
   <ItemGroup>
     <ProjectReference Include="..\DuoEditor.Auth.Domain\DuoEditor.Auth.Domain.csproj" />
     <ProjectReference Include="..\DuoEditor.Auth.App\DuoEditor.Auth.App.csproj" />
+    <ProjectReference Include="..\DuoEditor.Auth.Service\DuoEditor.Auth.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
-    <PackageReference Include="ServiceStack.Redis" Version="5.12.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
