@@ -9,9 +9,10 @@ services:
       - "5432:5432"
     volumes:
       - ./volumes/data/:/var/lib/postgresql/data
-  auth_redis:
+  auth_api:
+    image: duoeditor/auth
     build:
-      context: ./redis
+      context: .
       dockerfile: Dockerfile
     ports:
-      - "6379:6379"
+      - "5001:80"
